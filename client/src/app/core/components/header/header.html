@@ -1,8 +1,10 @@
 <div class="wrapper">
-  <h1>Todo App</h1>
+  <h1><a routerLink="/todos" routerLinkActive="active">Todo App</a></h1>
+  <a routerLink="/todos/create" routerLinkActive="active">Create a todo</a>
   <div class="todo-stats">
     <p>Total Todos: {{ todoCount() }}</p>
-    <p>Completed Todos: {{ completedTodos()?.length }}</p>
-    <p>Uncompleted Todos: {{ uncompletedTodos()?.length }}</p>
+    <p>Completed: {{ completedTodos()?.length }}</p>
+    <p>Uncompleted: {{ uncompletedTodos()?.length }}</p>
+    <p>Hello, {{ user().firstName }}</p>
   </div>
 </div>

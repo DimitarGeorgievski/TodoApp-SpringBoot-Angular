@@ -17,7 +17,7 @@ export class Login {
   private router = inject(Router);
   private toast = inject(NotificationsService);
   ngOnInit() {
-    if (this.auth.userData()) {
+    if (this.auth.userData) {
       this.router.navigate(['/todos']);
     }
   }

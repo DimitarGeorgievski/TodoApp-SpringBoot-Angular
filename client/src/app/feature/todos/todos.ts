@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TodoService } from '../../core/services/todo-service';
 import { Todo } from './models/todo.model';
 import { PageEvent } from '@angular/material/paginator';
@@ -18,41 +18,49 @@ export class Todos implements OnInit {
   private notificationService = inject(NotificationsService);
   private router = inject(Router);
   ngOnInit() {
-    this.updateDisplayedTodos();
+    this.refreshDisplayedTodos();
   }
   userTodos = this.todoService.userTodos;
-  displayedTodos = signal<Todo[]>([]);
   pageSize = 6;
   pageIndex = 0;
-  updateDisplayedTodos() {
-    const start = this.pageIndex * this.pageSize;
-    const end = start + this.pageSize;
-    this.displayedTodos.set(this.userTodos().slice(start, end));
-  }
+  displayedTodos = signal<Todo[]>([]);
   onPageChange(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.updateDisplayedTodos();
+    this.refreshDisplayedTodos();
   }
-  onUpdate(todo: Todo) {
-    this.router.navigate(['/todo/update']);
-    this.todoService.selectedTodoId.set(todo.id);
+  refreshDisplayedTodos() {
+    const todos = this.userTodos();
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    this.displayedTodos.set(todos.slice(start, end));
   }
 
+  onUpdate(todo: Todo) {
+    this.todoService.selectedTodoId.set(todo.id);
+    this.router.navigate([`/todos/update/${todo.id}`]);
+  }
   onDelete(todo: Todo) {
     this.todoService.deleteTodo(todo.id).subscribe({
       next: () => {
-        this.updateDisplayedTodos();
         this.notificationService.showToast('Successfully deleted todo', true);
+        this.todoService.userTodos.update((todos) => todos.filter((t) => t.id !== todo.id));
+        const total = this.userTodos().length;
+        const maxPage = Math.ceil(total / this.pageSize) - 1;
+        if (this.pageIndex > maxPage) {
+          this.pageIndex = maxPage < 0 ? 0 : maxPage;
+        }
+        this.refreshDisplayedTodos();
+      },
+      error: () => {
+        this.notificationService.showToast('Failed to delete todo', false);
       },
     });
   }
   onToggle(todo: Todo) {
-    todo.completed = !todo.completed;
-    this.todoService.updateTodo(todo).subscribe({
-      next: () => {
-        this.updateDisplayedTodos();
-      },
-    });
+    this.todoService.userTodos.update((todos) =>
+      todos.map((t) => (t.id === todo.id ? { ...t, completed: !t.completed } : t))
+    );
+    this.refreshDisplayedTodos();
   }
 }

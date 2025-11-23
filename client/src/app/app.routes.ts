@@ -6,6 +6,8 @@ import { Todos } from './feature/todos/todos';
 import { authGuard } from './core/guards/auth-guard';
 import { Register } from './feature/register/register';
 import { MainLayout } from './layout/main-layout/main-layout';
+import { UpdateTodo } from './feature/update-todo/update-todo';
+import { CreateTodo } from './feature/create-todo/create-todo';
 
 export const routes: Routes = [
   {
@@ -25,6 +27,8 @@ export const routes: Routes = [
     children: [
       { path: 'todos', component: Todos },
       { path: '', redirectTo: 'todos', pathMatch: 'full' },
+      { path: 'todos/update/:id', component: UpdateTodo },
+      { path: 'todos/create', component: CreateTodo },
     ],
   },
   {

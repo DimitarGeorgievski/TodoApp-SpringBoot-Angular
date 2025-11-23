@@ -1,0 +1,48 @@
+<div class="wrapper">
+  <div class="heading-wrapper">
+    <h2>Create Todo</h2>
+  </div>
+  <form #createTodo="ngForm" (ngSubmit)="onSubmit(createTodo)">
+    <div
+      [ngClass]="{ 'help-border': todoTitle.invalid && todoTitle.touched }"
+      class="form-group"
+    >
+      <label for="todoTitle"><mat-icon class="mail-icon">mail</mat-icon></label>
+      <input
+        type="text"
+        ngModel
+        name="todoTitle"
+        class="form-control"
+        id="todoTitle"
+        autocomplete="off"
+        placeholder="Enter your todo's title"
+        required=""
+        #todoTitle="ngModel"
+      />
+    </div>
+    @if (todoTitle.invalid && todoTitle.touched) {
+    <p class="help-block">Title is required</p>
+    }
+    <div
+      [ngClass]="{ 'help-border': todoDescription.invalid && todoDescription.touched }"
+      class="form-group"
+    >
+      <label for="todoDescription"><mat-icon class="mail-icon">lock</mat-icon></label>
+      <input
+        type="text"
+        ngModel
+        placeholder="Enter your todo's description"
+        name="todoDescription"
+        class="form-control"
+        id="todoDescription"
+        autocomplete="off"
+        required=""
+        #todoDescription="ngModel"
+      />
+    </div>
+    @if (todoDescription.invalid && todoDescription.touched) {
+    <p class="help-block">Description is required</p>
+    }
+    <button class="btn" type="submit">Create Todo</button>
+  </form>
+</div>
