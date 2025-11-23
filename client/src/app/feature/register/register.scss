@@ -21,8 +21,8 @@
     width: 80%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding-top: 5.5rem;
+    gap: 10px;
+    padding-top: 2rem;
     .help-border {
       border: 1px solid red;
     }
@@ -87,6 +87,7 @@
     padding: 10px 20px;
     border-radius: 10px;
     border: none;
+    margin: 0 10px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);

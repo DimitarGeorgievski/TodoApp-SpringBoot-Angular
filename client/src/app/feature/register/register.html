@@ -1,0 +1,95 @@
+<div class="wrapper">
+  <div class="heading-wrapper">
+    <h2>Sign up</h2>
+    <h3>Keep all your tasks in one place.</h3>
+  </div>
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+    <div
+      [ngClass]="{ 'help-border': registerFirstName.invalid && registerFirstName.touched }"
+      class="form-group"
+    >
+      <label for="register-firstName"><mat-icon class="mail-icon">person</mat-icon></label>
+      <input
+        type="text"
+        ngModel
+        name="registerFirstName"
+        class="form-control"
+        id="register-firstName"
+        autocomplete="off"
+        placeholder="Enter your first name"
+        required
+        #registerFirstName="ngModel"
+      />
+    </div>
+    @if (registerFirstName.invalid && registerFirstName.touched) {
+    <p class="help-block">First Name is required</p>
+    }
+    <div
+      [ngClass]="{ 'help-border': registerLastName.invalid && registerLastName.touched }"
+      class="form-group"
+    >
+      <label for="register-lastName"><mat-icon class="mail-icon">person_outline</mat-icon></label>
+      <input
+        type="text"
+        ngModel
+        name="registerLastName"
+        class="form-control"
+        id="register-lastName"
+        autocomplete="off"
+        placeholder="Enter your last name"
+        required
+        #registerLastName="ngModel"
+      />
+    </div>
+    @if (registerLastName.invalid && registerLastName.touched) {
+    <p class="help-block">Last Name is required</p>
+    }
+    <div
+      [ngClass]="{ 'help-border': registerEmail.invalid && registerEmail.touched }"
+      class="form-group"
+    >
+      <label for="register-email"><mat-icon class="mail-icon">mail</mat-icon></label>
+      <input
+        type="email"
+        ngModel
+        name="registerEmail"
+        class="form-control"
+        id="register-email"
+        autocomplete="off"
+        placeholder="Enter your email"
+        required
+        #registerEmail="ngModel"
+      />
+    </div>
+    @if (registerEmail.invalid && registerEmail.touched) {
+    <p class="help-block">Email is required</p>
+    }
+    <div
+      [ngClass]="{ 'help-border': registerPassword.invalid && registerPassword.touched }"
+      class="form-group"
+    >
+      <label for="login-password"><mat-icon class="mail-icon">lock</mat-icon></label>
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        ngModel
+        placeholder="Enter your password"
+        name="registerPassword"
+        class="form-control"
+        id="register-password"
+        autocomplete="off"
+        required
+        #registerPassword="ngModel"
+      />
+      <span class="password-toggle-wrapper"
+        ><mat-icon class="mail-icon" (click)="togglePasswordVisibility()">
+          visibility_off
+        </mat-icon></span
+      >
+    </div>
+    @if (registerPassword.invalid && registerPassword.touched) {
+    <p class="help-block">Password is required</p>
+    }
+    <button class="btn" type="submit">Get Started</button>
+    <button class="btn" (click)="onSignIn()">Already have an account?</button>
+  </form>
+</div>

@@ -6,39 +6,37 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgClass } from '@angular/common';
 import { NotificationsService } from '../../core/services/notification-service';
 
+
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   imports: [FormsModule, MatIconModule, NgClass],
-  templateUrl: './login.html',
-  styleUrl: './login.scss',
+  templateUrl: './register.html',
+  styleUrl: './register.scss',
 })
-export class Login {
+export class Register {
   private auth = inject(AuthService);
   private router = inject(Router);
   private toast = inject(NotificationsService);
-  ngOnInit() {
-    if (this.auth.userData()) {
-      this.router.navigate(['/todos']);
-    }
-  }
   showPassword = false;
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
   onSubmit(form: NgForm) {
     if (!form.valid) return;
-    const { loginEmail, loginPassword } = form.value;
+    const { registerFirstName, registerLastName, registerEmail, registerPassword } = form.value;
     console.log(form);
-    this.auth.login(loginEmail, loginPassword).subscribe({
-      next: () => {
-        this.toast.showToast('successfully login', true);
-      },
-      error: (err: Error) => {
-        this.toast.showToast("Invalid Credentials", false);
-      },
-    });
+    this.auth
+      .register(registerFirstName, registerLastName, registerEmail, registerPassword)
+      .subscribe({
+        next: () => {
+          this.toast.showToast('successfully registered user', true);
+        },
+        error: () => {
+          this.toast.showToast("Invalid informations, please try again", false);
+        },
+      });
   }
-  onSignup(){
-    this.router.navigate(["/register"])
+  onSignIn() {
+    this.router.navigate(['/login']);
   }
 }

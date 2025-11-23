@@ -1,8 +1,11 @@
 <div class="wrapper">
+  <div class="heading-wrapper">
+    <h2>Sign in with email</h2>
+    <h3>Keep all your tasks in one place.</h3>
+  </div>
   <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-    <h2>Login</h2>
-    <div class="form-group">
-      <label for="login-email">Email</label>
+    <div [ngClass]="{ 'help-border': loginEmail.invalid && loginEmail.touched }" class="form-group">
+      <label for="login-email"><mat-icon class="mail-icon">mail</mat-icon></label>
       <input
         type="text"
         ngModel
@@ -10,6 +13,7 @@
         class="form-control"
         id="login-email"
         autocomplete="off"
+        placeholder="Enter your email"
         required=""
         #loginEmail="ngModel"
       />
@@ -17,11 +21,15 @@
     @if (loginEmail.invalid && loginEmail.touched) {
     <p class="help-block">Email is required</p>
     }
-    <div class="form-group">
-      <label for="login-password">Password</label>
+    <div
+      [ngClass]="{ 'help-border': loginPassword.invalid && loginPassword.touched }"
+      class="form-group"
+    >
+      <label for="login-password"><mat-icon class="mail-icon">lock</mat-icon></label>
       <input
-        type="password"
+        [type]="showPassword ? 'text' : 'password'"
         ngModel
+        placeholder="Enter your password"
         name="loginPassword"
         class="form-control"
         id="login-password"
@@ -29,10 +37,16 @@
         required=""
         #loginPassword="ngModel"
       />
+      <span class="password-toggle-wrapper"
+        ><mat-icon class="mail-icon" (click)="togglePasswordVisibility()">
+          visibility_off
+        </mat-icon></span
+      >
     </div>
     @if (loginPassword.invalid && loginPassword.touched) {
     <p class="help-block">Password is required</p>
     }
-    <button class="btn" type="submit">Login</button>
+    <button class="btn" type="submit">Get Started</button>
+    <button class="registerBtn" (click)="onSignup()">Create an Account</button>
   </form>
 </div>

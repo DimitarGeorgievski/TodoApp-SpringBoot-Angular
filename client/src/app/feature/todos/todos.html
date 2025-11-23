@@ -1,1 +1,21 @@
-<p>todos works!</p>
+<div class="todos-container">
+  <div class="todos-grid">
+    @for (todo of displayedTodos(); track $index) {
+    <app-todo-card
+      [todo]="todo"
+      (update)="onUpdate($event)"
+      (delete)="onDelete($event)"
+      (toggle)="onToggle($event)"
+    >
+    </app-todo-card>
+    }
+  </div>
+  <mat-paginator
+    [length]="userTodos().length"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[6, 12, 18]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+</div>

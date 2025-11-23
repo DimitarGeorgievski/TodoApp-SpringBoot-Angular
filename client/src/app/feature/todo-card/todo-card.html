@@ -1,0 +1,19 @@
+<div class="todo-card">
+  <h3>{{ todo.title }}</h3>
+  <p>{{ todo.description }}</p>
+  <span 
+    [ngStyle]="{
+      color: todo.completed ? 'green' : 'red',
+      'font-weight': 'bold'
+    }">
+    {{ todo.completed ? 'Completed' : 'Not completed' }}
+  </span>
+
+  <div class="card-buttons">
+    <button (click)="updateTodo()">Update</button>
+    <button (click)="deleteTodo()">Delete</button>
+    <button (click)="toggleComplete()">
+      {{ todo.completed ? 'Uncomplete' : 'Complete' }}
+    </button>
+  </div>
+</div>

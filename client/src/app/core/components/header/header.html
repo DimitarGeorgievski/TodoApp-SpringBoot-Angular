@@ -1,3 +1,8 @@
 <div class="wrapper">
-    <h1></h1>
+  <h1>Todo App</h1>
+  <div class="todo-stats">
+    <p>Total Todos: {{ todoCount() }}</p>
+    <p>Completed Todos: {{ completedTodos()?.length }}</p>
+    <p>Uncompleted Todos: {{ uncompletedTodos()?.length }}</p>
+  </div>
 </div>

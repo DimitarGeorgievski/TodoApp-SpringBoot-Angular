@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { TodoService } from '../../services/todo-service';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './header.scss',
 })
 export class Header {
-
+  private todoService = inject(TodoService)
+  todoCount = this.todoService.todoLength
+  completedTodos = this.todoService.compltedTodos
+  uncompletedTodos = this.todoService.uncompltedTodos
 }
