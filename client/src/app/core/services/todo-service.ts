@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { Todo } from '../../feature/todos/models/todo.model';
+import { createTodo, Todo } from '../../feature/todos/models/todo.model';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
 import { AuthService } from './auth-service';
@@ -36,7 +36,7 @@ export class TodoService {
       })
     );
   }
-  createTodo(data: Todo, userId: number) {
+  createTodo(data: createTodo, userId: number) {
     return this.http.post<Todo>(`${this.apiUrl}/api/todos/user/${userId}`, data).pipe(
       tap((res: Todo) => {
         this.userTodos.update((todos) => [...todos, res]);

@@ -4,3 +4,8 @@ export interface Todo {
   description: string;
   completed: boolean;
 }
+export interface createTodo{
+  description: string;
+  title:string;
+  completed: boolean;
+}

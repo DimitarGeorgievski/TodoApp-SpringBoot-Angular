@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { TodoService } from '../../core/services/todo-service';
 import { NotificationsService } from '../../core/services/notification-service';
-import { Todo } from '../todos/models/todo.model';
+import { createTodo, Todo } from '../todos/models/todo.model';
 import { UserService } from '../../core/services/user-service';
 
 @Component({
@@ -25,8 +25,7 @@ export class CreateTodo {
   onSubmit(form: NgForm) {
     if (!form.valid) return;
     const { todoTitle, todoDescription } = form.value;
-    const createdTodo: Todo = {
-      id: this.todoLength,
+    const createdTodo: createTodo = {
       title: todoTitle,
       description: todoDescription,
       completed: false,
